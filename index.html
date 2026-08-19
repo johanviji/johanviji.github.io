@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Johan Viji Skariah — Information Security &amp; Software</title>
+<meta name="description" content="Portfolio of Johan Viji Skariah — B.Tech Computer Science (Information Security) student, software intern, and builder of secure systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFBFA;
+    --panel:#F0F3F1;
+    --ink:#12151A;
+    --ink-soft:#4B5259;
+    --line:#DCE1DE;
+    --accent:#2D5FE0;
+    --accent-soft:#E8EDFC;
+    --mono-dim:#8891A0;
+    --radius:2px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--accent);color:var(--paper);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,251,250,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .navrow{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{
+    font-family:var(--mono);font-size:14px;font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  nav a{
+    font-family:var(--mono);font-size:12.5px;text-transform:uppercase;
+    letter-spacing:0.08em;color:var(--ink-soft);
+    position:relative;padding-bottom:3px;
+  }
+  nav a:hover{color:var(--ink);}
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .2s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .navtoggle{display:none;background:none;border:1px solid var(--line);border-radius:var(--radius);
+    width:36px;height:36px;cursor:pointer;font-family:var(--mono);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 72px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+  .eyebrow{
+    font-family:var(--mono);font-size:12.5px;color:var(--accent);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;background:var(--accent);display:inline-block;
+    border-radius:50%;animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  h1.title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.05;
+    margin:0 0 20px;
+    letter-spacing:-0.01em;
+  }
+  .decrypt{white-space:pre-wrap;}
+  .tagline{
+    font-size:18px;color:var(--ink-soft);max-width:560px;margin:0 0 34px;
+  }
+  .tagline strong{color:var(--ink);font-weight:600;}
+
+  .hero-links{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{
+    font-family:var(--mono);font-size:13px;letter-spacing:0.03em;
+    padding:11px 18px;border-radius:var(--radius);border:1px solid var(--line);
+    display:inline-flex;align-items:center;gap:8px;transition:.15s ease;
+  }
+  .btn:hover{border-color:var(--ink);transform:translateY(-1px);}
+  .btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent);}
+
+  .hero-glyphs{
+    position:absolute;right:-40px;top:20px;font-family:var(--mono);
+    font-size:12px;color:var(--line);line-height:1.7;text-align:right;
+    user-select:none;display:none;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:72px 0;border-bottom:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
+  .section-num{font-family:var(--mono);font-size:12.5px;color:var(--mono-dim);}
+  h2{font-family:var(--display);font-size:26px;font-weight:600;margin:0;letter-spacing:-0.01em;}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start;}
+  .about-grid p{color:var(--ink-soft);margin:0 0 16px;}
+  .factsheet{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;background:var(--panel);}
+  .factsheet dt{font-family:var(--mono);font-size:11px;color:var(--mono-dim);text-transform:uppercase;letter-spacing:0.08em;margin-top:14px;}
+  .factsheet dt:first-child{margin-top:0;}
+  .factsheet dd{margin:3px 0 0;font-size:14.5px;}
+
+  /* Experience / Education timeline */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .tl-item{position:relative;margin-bottom:36px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-26px;top:5px;width:9px;height:9px;
+    border-radius:50%;background:var(--paper);border:2px solid var(--accent);
+  }
+  .tl-date{font-family:var(--mono);font-size:12px;color:var(--mono-dim);letter-spacing:0.04em;}
+  .tl-role{font-family:var(--display);font-weight:600;font-size:18px;margin:4px 0 2px;}
+  .tl-org{color:var(--ink-soft);font-size:14.5px;margin-bottom:10px;}
+  .tl-item ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:14.5px;}
+  .tl-item li{margin-bottom:6px;}
+  .tl-tech{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--accent);}
+
+  /* Projects */
+  .projects{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .card{
+    border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+    background:var(--paper);transition:.18s ease;display:flex;flex-direction:column;
+  }
+  .card:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(45,95,224,0.08);transform:translateY(-2px);}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .card h3{font-family:var(--display);font-size:19px;margin:0;font-weight:600;}
+  .card-status{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;
+    padding:3px 8px;border-radius:var(--radius);white-space:nowrap;}
+  .status-shipped{background:var(--accent-soft);color:var(--accent);}
+  .status-progress{background:#FBEFE0;color:#8A5A16;}
+  .card p{color:var(--ink-soft);font-size:14.5px;margin:0 0 16px;flex-grow:1;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--ink-soft);border:1px solid var(--line);
+    padding:3px 8px;border-radius:var(--radius);}
+  .card-link{font-family:var(--mono);font-size:12.5px;color:var(--accent);}
+  .card-link:hover{text-decoration:underline;}
+
+  /* Skills */
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .skill-group h4{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--mono-dim);margin:0 0 14px;}
+  .skill-group .tags{margin-bottom:28px;}
+  .skill-group .tag{font-size:12.5px;padding:6px 12px;}
+  .soft-list{list-style:none;margin:0;padding:0;}
+  .soft-list li{
+    padding:10px 0;border-bottom:1px dashed var(--line);font-size:14.5px;color:var(--ink-soft);
+    display:flex;gap:10px;
+  }
+  .soft-list li:last-child{border-bottom:none;}
+  .soft-list li::before{content:"—";color:var(--accent);font-family:var(--mono);}
+
+  /* Beyond */
+  .beyond-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .beyond-card{border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--panel);}
+  .beyond-card h4{font-family:var(--display);font-size:16px;margin:0 0 8px;}
+  .beyond-card p{color:var(--ink-soft);font-size:14px;margin:0;}
+
+  /* Contact / Footer */
+  footer{padding:64px 0 48px;}
+  .contact-title{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:700;margin:0 0 16px;letter-spacing:-0.01em;}
+  .contact-sub{color:var(--ink-soft);max-width:480px;margin:0 0 32px;}
+  .contact-links{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px;}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    padding-top:24px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:12px;color:var(--mono-dim);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media(prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .eyebrow::before{animation:none;}
+  }
+
+  @media(max-width:760px){
+    nav ul{display:none;}
+    .navtoggle{display:block;}
+    .about-grid,.projects,.skills-grid,.beyond-grid{grid-template-columns:1fr;}
+    section{padding:56px 0;}
+    .hero{padding:64px 0 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap navrow">
+    <div class="logo">JOHAN<span>://</span>VS</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu">≡</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Available for opportunities · Bengaluru, India</div>
+    <h1 class="title decrypt" id="decrypt-title">Johan Viji Skariah</h1>
+    <p class="tagline">B.Tech Computer Science <strong>(Information Security)</strong> student at VIT Vellore, building secure full-stack and cryptographic applications — currently interning at <strong>MediaCreche Solutions</strong>.</p>
+    <div class="hero-links">
+      <a class="btn primary" href="Johan_Viji_Skariah_Resume.pdf" download>Download Résumé ↓</a>
+      <a class="btn" href="https://github.com/johanviji" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="mailto:johanvskariah@gmail.com">Email</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I'm a second-year Computer Science student specializing in Information Security, with hands-on experience building secure, cryptographic full-stack applications. My work sits at the intersection of backend engineering and security — encryption, authentication, and safe data handling — alongside a broader interest in hardware-software integration and consumer tech.</p>
+        <p>Outside of code, I lead editorial operations for VIT's Model United Nations society and compete in badminton at a semi-professional level — both of which have sharpened how I manage detail under pressure and work with people toward a shared deadline.</p>
+      </div>
+      <dl class="factsheet">
+        <dt>Education</dt>
+        <dd>B.Tech CS (Information Security), VIT Vellore — CGPA 8.46</dd>
+        <dt>Current Role</dt>
+        <dd>Software Intern, MediaCreche Solutions Pvt. Ltd.</dd>
+        <dt>Based In</dt>
+        <dd>Bengaluru, India</dd>
+        <dt>Languages</dt>
+        <dd>English, Hindi, Malayalam, Tamil</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>Experience &amp; Education</h2></div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">Jun 2026 — Present</div>
+        <div class="tl-role">Software Intern</div>
+        <div class="tl-org">MediaCreche Solutions Pvt. Ltd. · Bengaluru, India</div>
+        <ul>
+          <li>Developing a full-stack Security Manager application in Python, implementing AES-256 encryption, bcrypt master-password hashing, and secure vault storage using SQLite.</li>
+          <li>Designing core security modules — authentication, cryptography, and password generation — from the ground up.</li>
+          <li>Building SecurityAuth, a reusable PyPI package that abstracts core cryptographic and password-management functionality so other developers can integrate enterprise-grade security with minimal configuration.</li>
+        </ul>
+        <div class="tl-tech">Python · AES-256 · bcrypt · PBKDF2 · SQLite · Tkinter · Flask</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 2024 — Present</div>
+        <div class="tl-role">B.Tech, Computer Science (Information Security)</div>
+        <div class="tl-org">Vellore Institute of Technology · Vellore, Tamil Nadu · CGPA 8.46</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jun 2022 — Apr 2024</div>
+        <div class="tl-role">Class XII, CBSE</div>
+        <div class="tl-org">Delhi Public School, Whitefield · Bengaluru · 88.2% aggregate</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Class X, ICSE</div>
+        <div class="tl-role">Gopalan International School</div>
+        <div class="tl-org">Bengaluru · 95.0% aggregate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Projects</h2></div>
+    <div class="projects reveal">
+
+      <div class="card">
+        <div class="card-top"><h3>Security Manager</h3><span class="card-status status-progress">In Progress</span></div>
+        <p>A full-stack password manager built step by step over six weeks — encrypted vault storage, master-password auth, a password generator, and a ttkbootstrap desktop GUI, with session timeout and a full unit test suite.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">AES-256</span><span class="tag">bcrypt</span><span class="tag">SQLite</span><span class="tag">ttkbootstrap</span>
+        </div>
+        <a class="card-link" href="https://github.com/johanviji" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>SecurityAuth</h3><span class="card-status status-progress">Finalizing</span></div>
+        <p>A reusable Python package that abstracts authentication and password-management primitives into an installable library — built so other interns can drop enterprise-grade security into their own apps via a single PyPI install.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">PyPI</span><span class="tag">pytest</span><span class="tag">Crypto</span>
+        </div>
+        <a class="card-link" href="https://github.com/johanviji" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>Automatic Medicine Dispenser</h3><span class="card-status status-shipped">Hardware Built</span></div>
+        <p>An automated hardware prototype that dispenses medication on a precise schedule using an Arduino microcontroller, a servo motor, and real-time clock scheduling — reducing human error in medical adherence. Next up: migrating to ESP32 with Wi-Fi and a Flutter companion app.</p>
+        <div class="tags">
+          <span class="tag">Arduino</span><span class="tag">C++</span><span class="tag">Servo Motor</span><span class="tag">RTC</span><span class="tag">ESP32 (planned)</span><span class="tag">Flutter (planned)</span>
+        </div>
+        <a class="card-link" href="https://github.com/johanviji" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>Sprie</h3><span class="card-status status-progress">Personal Project</span></div>
+        <p>A fashion search platform exploring how people discover clothing online — part of a longer-running interest in consumer tech and search-driven product experiences.</p>
+        <div class="tags">
+          <span class="tag">Consumer Tech</span><span class="tag">Search</span>
+        </div>
+        <a class="card-link" href="https://github.com/johanviji" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Skills</h2></div>
+    <div class="skills-grid reveal">
+      <div>
+        <div class="skill-group">
+          <h4>Programming</h4>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Java</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Web Development</h4>
+          <div class="tags">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Security &amp; Backend</h4>
+          <div class="tags">
+            <span class="tag">AES-256</span><span class="tag">bcrypt</span><span class="tag">PBKDF2</span><span class="tag">SQLite</span><span class="tag">Flask</span><span class="tag">Tkinter</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Soft Skills</h4>
+        <ul class="soft-list">
+          <li>Analytical Problem Solving</li>
+          <li>Technical Documentation</li>
+          <li>Team Collaboration</li>
+          <li>Adaptability</li>
+          <li>Communication Skills</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">05</span><h2>Beyond the Code</h2></div>
+    <div class="beyond-grid reveal">
+      <div class="beyond-card">
+        <h4>VIT MUN Society</h4>
+        <p>USG Registrations (VITMUN'26) and Lead Editor for DEScore, managing the editorial pipeline, research quality, and scoring documentation for the society's publications. Also trains students as a Press Corps Trainer in international journalism and diplomacy.</p>
+      </div>
+      <div class="beyond-card">
+        <h4>Competitive Badminton</h4>
+        <p>Plays at a semi-professional level, actively training and competing in tournament circuits — alongside a regular interest in football and Model United Nations events.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="contact-title">Let's talk.</div>
+      <p class="contact-sub">Open to internships, collaborations, and interesting security or backend problems.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:johanvskariah@gmail.com">johanvskariah@gmail.com</a>
+        <a class="btn" href="tel:+918548847310">+91 85488 47310</a>
+        <a class="btn" href="https://github.com/johanviji" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Johan Viji Skariah</span>
+        <span>Built with HTML, CSS &amp; JS</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Decrypt-reveal hero title
+  (function(){
+    const el = document.getElementById('decrypt-title');
+    const finalText = el.textContent;
+    const glyphs = "01#$%&ABCDEFΞΔΘ*+/\\<>";
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    const totalFrames = 26;
+    el.setAttribute('aria-label', finalText);
+
+    function render(){
+      let out = "";
+      for(let i=0;i<finalText.length;i++){
+        const ch = finalText[i];
+        if(ch === " "){ out += " "; continue; }
+        const revealAt = (i/finalText.length) * totalFrames * 0.6;
+        if(frame >= revealAt + (totalFrames*0.35)){
+          out += ch;
+        } else if (frame >= revealAt) {
+          out += glyphs[Math.floor(Math.random()*glyphs.length)];
+        } else {
+          out += glyphs[Math.floor(Math.random()*glyphs.length)];
+        }
+      }
+      el.textContent = out;
+      frame++;
+      if(frame <= totalFrames + 6){
+        requestAnimationFrame(()=>setTimeout(render, 28));
+      } else {
+        el.textContent = finalText;
+      }
+    }
+    render();
+  })();
+
+  // Scroll reveal
+  (function(){
+    const items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(i=>i.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    items.forEach(i=>io.observe(i));
+  })();
+
+  // Mobile nav toggle
+  (function(){
+    const btn = document.getElementById('navtoggle');
+    const list = document.querySelector('nav ul');
+    btn.addEventListener('click', ()=>{
+      const open = list.style.display === 'flex';
+      list.style.display = open ? 'none' : 'flex';
+      list.style.flexDirection = 'column';
+      list.style.position='absolute';
+      list.style.top='58px';
+      list.style.right='28px';
+      list.style.background='var(--paper)';
+      list.style.border='1px solid var(--line)';
+      list.style.padding='16px 20px';
+      list.style.gap='14px';
+      list.style.borderRadius='var(--radius)';
+    });
+  })();
+</script>
+
+</body>
+</html>
