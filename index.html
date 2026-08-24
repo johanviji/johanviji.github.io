@@ -520,11 +520,10 @@
         requestAnimationFrame(() => setTimeout(runGlitchOnce, 35));
       } else {
         terminal.textContent = targetMessage;
+        startNameDecrypt(); // Starts immediately as fade out begins
         overlay.style.opacity = '0';
         setTimeout(() => {
           overlay.remove();
-          // Trigger the name letter-shuffling effect right after intro finishes!
-          startNameDecrypt();
         }, 500);
       }
     }
