@@ -45,7 +45,7 @@
   .glitch-overlay {
     position: fixed;
     inset: 0;
-    background: #000000;
+    background: var(--ink);
     color: #00FF66;
     font-family: var(--mono);
     z-index: 9999;
@@ -487,7 +487,7 @@
 </footer>
 
 <script>
-  // Combined Script: Intro Glitch -> Followed immediately by Name Shuffling Effect
+  // One-time Hacker Glitch Intro Effect
   (function(){
     const overlay = document.getElementById('glitchOverlay');
     const terminal = document.getElementById('glitchTerminal');
@@ -520,7 +520,6 @@
         requestAnimationFrame(() => setTimeout(runGlitchOnce, 35));
       } else {
         terminal.textContent = targetMessage;
-        startNameDecrypt(); // Starts immediately as fade out begins
         overlay.style.opacity = '0';
         setTimeout(() => {
           overlay.remove();
@@ -528,47 +527,47 @@
       }
     }
 
-    function startNameDecrypt() {
-      const el = document.getElementById('decrypt-title');
-      const finalText = el.textContent;
-      const titleGlyphs = "01#$%&ABCDEFΞΔΘ*+/\\<>";
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      let nameFrame = 0;
-      const totalFrames = 26;
-      el.setAttribute('aria-label', finalText);
-
-      function renderName(){
-        let out = "";
-        for(let i=0; i<finalText.length; i++){
-          const ch = finalText[i];
-          if(ch === " "){ out += " "; continue; }
-          const revealAt = (i/finalText.length) * totalFrames * 0.6;
-          if(nameFrame >= revealAt + (totalFrames*0.35)){
-            out += ch;
-          } else if (nameFrame >= revealAt) {
-            out += titleGlyphs[Math.floor(Math.random()*titleGlyphs.length)];
-          } else {
-            out += titleGlyphs[Math.floor(Math.random()*titleGlyphs.length)];
-          }
-        }
-        el.textContent = out;
-        nameFrame++;
-        if(nameFrame <= totalFrames + 6){
-          requestAnimationFrame(()=>setTimeout(renderName, 28));
-        } else {
-          el.textContent = finalText;
-        }
-      }
-      renderName();
-    }
-
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       requestAnimationFrame(runGlitchOnce);
     } else {
       overlay.remove();
-      startNameDecrypt();
     }
+  })();
+
+  // Decrypt-reveal hero title (Johan Viji Skariah shuffling letters)
+  (function(){
+    const el = document.getElementById('decrypt-title');
+    const finalText = el.textContent;
+    const glyphs = "01#$%&ABCDEFΞΔΘ*+/\\<>";
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    const totalFrames = 26;
+    el.setAttribute('aria-label', finalText);
+
+    function render(){
+      let out = "";
+      for(let i=0;i<finalText.length;i++){
+        const ch = finalText[i];
+        if(ch === " "){ out += " "; continue; }
+        const revealAt = (i/finalText.length) * totalFrames * 0.6;
+        if(frame >= revealAt + (totalFrames*0.35)){
+          out += ch;
+        } else if (frame >= revealAt) {
+          out += glyphs[Math.floor(Math.random()*glyphs.length)];
+        } else {
+          out += glyphs[Math.floor(Math.random()*glyphs.length)];
+        }
+      }
+      el.textContent = out;
+      frame++;
+      if(frame <= totalFrames + 6){
+        requestAnimationFrame(()=>setTimeout(render, 28));
+      } else {
+        el.textContent = finalText;
+      }
+    }
+    render();
   })();
 
   // Scroll reveal
