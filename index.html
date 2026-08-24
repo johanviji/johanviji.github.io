@@ -41,6 +41,28 @@
 
   .wrap{max-width:1040px;margin:0 auto;padding:0 32px;}
 
+  /* ---------- HACKER GLITCH OVERLAY ---------- */
+  .glitch-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    color: #00FF66;
+    font-family: var(--mono);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .glitch-text {
+    font-size: clamp(14px, 2vw, 20px);
+    letter-spacing: 0.1em;
+    white-space: pre-wrap;
+    text-align: center;
+  }
+
   /* ---------- NAV ---------- */
   header{
     position:sticky;top:0;z-index:50;
@@ -243,6 +265,11 @@
 </style>
 </head>
 <body>
+
+<!-- Hacker Glitch Intro Overlay (Runs Once) -->
+<div class="glitch-overlay" id="glitchOverlay">
+  <div class="glitch-text" id="glitchTerminal">INITIALIZING SECURE SHELL...</div>
+</div>
 
 <header>
   <div class="wrap navrow">
@@ -460,6 +487,53 @@
 </footer>
 
 <script>
+  // One-time Hacker Glitch Intro Effect
+  (function(){
+    const overlay = document.getElementById('glitchOverlay');
+    const terminal = document.getElementById('glitchTerminal');
+    const targetMessage = "SECURE PROTOCOL v3.2 // SYSTEM ENGAGED [ OK ]";
+    const glyphs = "01#$%&@ABCDEFΞΔΘ*+/\\<>~XYZ_";
+    
+    let frame = 0;
+    const maxFrames = 35;
+
+    function runGlitchOnce() {
+      let output = "";
+      for (let i = 0; i < targetMessage.length; i++) {
+        const char = targetMessage[i];
+        if (char === " ") {
+          output += " ";
+          continue;
+        }
+        const lockThreshold = (i / targetMessage.length) * maxFrames * 0.7;
+        if (frame >= lockThreshold) {
+          output += char;
+        } else {
+          output += glyphs[Math.floor(Math.random() * glyphs.length)];
+        }
+      }
+
+      terminal.textContent = output;
+      frame++;
+
+      if (frame <= maxFrames) {
+        requestAnimationFrame(() => setTimeout(runGlitchOnce, 35));
+      } else {
+        terminal.textContent = targetMessage;
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.remove();
+        }, 500);
+      }
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      requestAnimationFrame(runGlitchOnce);
+    } else {
+      overlay.remove();
+    }
+  })();
+
   // Decrypt-reveal hero title
   (function(){
     const el = document.getElementById('decrypt-title');
